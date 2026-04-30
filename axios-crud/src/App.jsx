@@ -10,6 +10,7 @@ function App() {
   const[nev,setNev] = useState("");
   const[kategorianev, setKategorianev] = useState("");
   const[vegetarianus,setVegetarianus] = useState("");
+  const[edit, setEdit] = useState(false);
 
   async function getPizza(){
       const response = await axios.get('/api.php');
@@ -26,7 +27,30 @@ function App() {
     const response = await axios.post('/api.php', {
       nev,kategorianev,vegetarianus
     });
+    setNev("");
+    setKategorianev("");
+    setVegetarianus("");
     await getPizza();
+  }
+  
+  function editPizza(nev,kategorianev,vegetarianus){
+    setEdit(true);
+    setNev(nev);
+    setKategorianev(kategorianev);
+    setVegetarianus(vegetarianus);
+  }
+
+  async function updatePizza() {
+    const response = axios.put('/api.php',{
+      nev,kategorianev,vegetarianus
+    });
+    await getPizza();
+
+    setEdit(false);
+    setNev("");
+    setKategorianev("");
+    setVegetarianus("");
+
   }
 
   return (
@@ -62,7 +86,9 @@ function App() {
                   <option value="0">Nem</option>
               </select>
               <div id="buttons">
-                  <button onClick={()=>addPizza()}>Hozzáadás</button>
+                  {
+                    edit?<button onClick={()=>updatePizza()}>Módosítás</button>:<button onClick={()=>addPizza()}>Hozzáadás</button>
+                  }
               </div>
           </div>
           <table id="fetch-table">
@@ -75,7 +101,7 @@ function App() {
                       <td>{pizza.kategorianev}</td>
                       <td>{pizza.vegetarianus==0 ? 'Nem' : 'Igen'}</td>
                       <td>
-                        <button>Módosítás</button>
+                        <button onClick={()=>editPizza(pizza.nev,pizza.kategorianev,pizza.vegetarianus)}>Módosítás</button>
                         <button onClick={()=>deletePizza(pizza.nev)}>Törlés</button>
                       </td>
                     </tr>
