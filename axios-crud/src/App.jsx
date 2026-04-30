@@ -72,7 +72,7 @@ function App() {
       <main>
           <h2>Axios Adatkezelés</h2>
           <div className="crud-form">
-              <input type="text" id="nev" value={nev} onChange={(e)=>setNev(e.target.value)} placeholder="Pizza neve"/>
+              <input type="text" id="nev" disabled={edit} value={nev} onChange={(e)=>setNev(e.target.value)} placeholder="Pizza neve"/>
               <select id="kategorianev" name="kategorianev" value={kategorianev} onChange={(e)=>setKategorianev(e.target.value)} required>
                   <option value=""disabled selected>Válassz</option>
                   <option value="király">Király</option>
