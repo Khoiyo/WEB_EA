@@ -22,8 +22,24 @@
     </nav>
     <main>
         <h2>Fetch API Adatkezelés</h2>
+        <div class="crud-form">
+            <input type="text" id="p-nev" placeholder="Pizza neve">
+            <select id="kategoria" name="kategoria" required>
+                <option value=""disabled selected>Válassz</option>
+                <option value="király">Király</option>
+                <option value="apród">Apród</option>
+                <option value="főnemes">Főnemes</option>
+                <option value="lovag">Lovag</option>
+             </select>
+            <select id="vegan" name="vegan" required>
+                <option value=""disabled selected>Válassz</option>
+                <option value="1">Igen</option>
+                <option value="0">Nem</option>
+            </select>
+            <button onclick="addPizza()">Hozzáadás</button>
+        </div>
         <table id="fetch-table">
-            <thead><tr><th>Pizza</th><th>Darab</th><th>Idő</th></tr></thead>
+            <thead><tr><th>Pizza</th><th>Kategória</th><th>Vegán</th></tr></thead>
             <tbody id="fetch-body"></tbody>
         </table>
     </main>
