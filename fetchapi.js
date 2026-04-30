@@ -6,7 +6,7 @@ function renderTable(data) {
         tableBody.innerHTML += 
         `
             <tr>
-                <td>${item.nev}</td><td>${item.kategoria}</td> <td>${item.vegan ? 'Igen' : 'Nem'}</td>
+                <td>${item.nev}</td><td>${item.kategorianev}</td> <td>${item.vegetarianus ? 'Igen' : 'Nem'}</td>
                 <td>
                     <button onclick="editPizza('${item.nev}')">Szerkesztés</button>
                     <button onclick="deletePizza('${item.nev}')">Törlés</button>
@@ -34,3 +34,5 @@ async function addPizza(pizzaData) {
     });
     getPizzas(); 
 }
+
+getPizzas();
