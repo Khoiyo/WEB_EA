@@ -12,6 +12,10 @@ function App() {
       setPizzak(response.data);
   }
   useEffect(() => {getPizza()},[]);
+  async function deletePizza(nev) {
+      const response = await axios.delete(`/api.php?nev=${nev}`);
+      await getPizza();
+  }
 
   return (
     <>
@@ -60,7 +64,7 @@ function App() {
                       <td>{pizza.vegetarianus==0 ? 'Nem' : 'Igen'}</td>
                       <td>
                         <button>Módosítás</button>
-                        <button>Törlés</button>
+                        <button onClick={()=>deletePizza(pizza.nev)}>Törlés</button>
                       </td>
                     </tr>
                   ))
