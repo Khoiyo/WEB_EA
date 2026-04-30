@@ -62,7 +62,7 @@ function App() {
                   <option value="0">Nem</option>
               </select>
               <div id="buttons">
-                  <button onclick="addPizza()">Hozzáadás</button>
+                  <button onClick={()=>addPizza()}>Hozzáadás</button>
               </div>
           </div>
           <table id="fetch-table">
