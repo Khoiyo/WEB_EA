@@ -8,7 +8,7 @@ function renderTable(data) {
             <tr>
                 <td>${item.nev}</td><td>${item.kategorianev}</td> <td>${item.vegetarianus ? 'Igen' : 'Nem'}</td>
                 <td>
-                    <button onclick="editPizza('${item.nev}')">Szerkesztés</button>
+                    <button onclick="editPizza('${item.nev}', '${item.kategorianev}', '${item.vegetarianus}')">Szerkesztés</button>
                     <button onclick="deletePizza('${item.nev}')">Törlés</button>
                 </td>
             </tr>
@@ -63,6 +63,51 @@ async function deletePizza(pizzaNev) {
 
     } catch (error) {
         console.error("Hiba törléskor:", error);
+    }
+}
+
+function editPizza(nev, kategorianev, vegetarianus) {
+    document.getElementById('nev').value = nev;
+    document.getElementById('kategorianev').value = kategorianev;
+    document.getElementById('vegetarianus').value = vegetarianus;
+    
+    console.log("Szerkesztés kijelölve: " + nev);
+}
+
+async function updatePizza() {
+    const nev = document.getElementById('nev').value;
+    const kategorianev = document.getElementById('kategorianev').value;
+    const vegetarianus = document.getElementById('vegetarianus').value;
+
+    if (!nev) {
+        alert("Nincs kiválasztva pizza!");
+        return;
+    }
+
+    try {
+        const response = await fetch('api.php', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nev: nev,
+                kategorianev: kategorianev,
+                vegetarianus: vegetarianus
+            })
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert("Sikeres frissítés!");
+            getPizzas(); 
+            document.getElementById('nev').value = '';
+            document.getElementById('kategorianev').value = '';
+            document.getElementById('vegetarianus').value = '';
+        } else {
+            alert("Hiba: " + (result.message || "Hiba a mentés során"));
+        }
+    } catch (error) {
+        console.error("Hiba:", error);
     }
 }
 
