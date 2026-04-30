@@ -42,4 +42,29 @@ async function addPizza() {
     getPizzas(); 
 }
 
+async function deletePizza(pizzaNev) {
+    if (!confirm(`Biztosan törölni szeretnéd a következő pizzát: ${pizzaNev}?`)) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`api.php?nev=${encodeURIComponent(pizzaNev)}`, {
+            method: 'DELETE'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            console.log("Sikeres törlés:", result);
+            getPizzas(); 
+        } else {
+            alert("Hiba: " + (result.message || "Ismeretlen hiba"));
+        }
+
+    } catch (error) {
+        console.error("Hiba törléskor:", error);
+    }
+}
+
 getPizzas();
+
