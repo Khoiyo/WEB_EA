@@ -46,9 +46,9 @@ try {
         case 'PUT':
             
             $data = json_decode(file_get_contents('php://input'), true);
-            if (isset($data['id'])) {
-                $stmt = $dbh->prepare("UPDATE pizza SET nev = ?, kategorianev = ?, vegetarianus = ? WHERE id = ?");
-                $stmt->execute([$data['nev'], $data['kategorianev'], $data['vegetarianus'], $data['id']]);
+            if (isset($data['nev'])) {
+                $stmt = $dbh->prepare("UPDATE pizza SET kategorianev = ?, vegetarianus = ? WHERE nev = ?");
+                $stmt->execute([ $data['kategorianev'], $data['vegetarianus'], $data['nev']]);
                 echo json_encode(['status' => 'success', 'message' => 'Pizza frissítve']);
             }
             break;
