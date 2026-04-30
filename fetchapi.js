@@ -1,3 +1,21 @@
+function renderTable(data) {
+    const tableBody = document.getElementById('fetch-body');
+    tableBody.innerHTML = '';
+
+    data.forEach(item => {
+        tableBody.innerHTML += 
+        `
+            <tr>
+                <td>${item.nev}</td><td>${item.kategoria}</td> <td>${item.vegan ? 'Igen' : 'Nem'}</td>
+                <td>
+                    <button onclick="editPizza('${item.nev}')">Szerkesztés</button>
+                    <button onclick="deletePizza('${item.nev}')">Törlés</button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
 async function getPizzas() {
     try {
         const response = await fetch('api.php');
