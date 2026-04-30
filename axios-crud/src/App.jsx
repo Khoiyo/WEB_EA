@@ -7,14 +7,26 @@ import './style.css'
 
 function App() {
   const[pizzak,setPizzak] = useState([]);
+  const[nev,setNev] = useState("");
+  const[kategorianev, setKategorianev] = useState("");
+  const[vegetarianus,setVegetarianus] = useState("");
+
   async function getPizza(){
       const response = await axios.get('/api.php');
       setPizzak(response.data);
   }
   useEffect(() => {getPizza()},[]);
+
   async function deletePizza(nev) {
       const response = await axios.delete(`/api.php?nev=${nev}`);
       await getPizza();
+  }
+
+  async function addPizza() {
+    const response = await axios.post('/api.php', {
+      nev,kategorianev,vegetarianus
+    });
+    await getPizza();
   }
 
   return (
@@ -36,15 +48,15 @@ function App() {
       <main>
           <h2>Axios Adatkezelés</h2>
           <div className="crud-form">
-              <input type="text" id="nev" placeholder="Pizza neve"/>
-              <select id="kategorianev" name="kategorianev" required>
+              <input type="text" id="nev" value={nev} onChange={(e)=>setNev(e.target.value)} placeholder="Pizza neve"/>
+              <select id="kategorianev" name="kategorianev" value={kategorianev} onChange={(e)=>setKategorianev(e.target.value)} required>
                   <option value=""disabled selected>Válassz</option>
                   <option value="király">Király</option>
                   <option value="apród">Apród</option>
                   <option value="főnemes">Főnemes</option>
                   <option value="lovag">Lovag</option>
                 </select>
-              <select id="vegetarianus" name="vegetarianus" required>
+              <select id="vegetarianus" name="vegetarianus" value={vegetarianus} onChange={(e)=> setVegetarianus(e.target.value)} required>
                   <option value=""disabled selected>Válassz</option>
                   <option value="1">Igen</option>
                   <option value="0">Nem</option>
