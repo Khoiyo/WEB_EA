@@ -57,6 +57,7 @@ h2, h3 {
 }
 
 .crud-form {
+    display : flex;
     background: #fff;
     padding: 15px;
     border-radius: 8px;
@@ -64,7 +65,11 @@ h2, h3 {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.crud-form input {
+#buttons{
+    margin-left: auto;
+}
+
+.crud-form input, .crud-form select {
     padding: 10px;
     margin-right: 10px;
     border: 1px solid #ccc;
