@@ -1,120 +1,73 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios';
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
-import './App.css'
+import './style.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const[pizzak,setPizzak] = useState([]);
+  async function getPizza(){
+      const response = await axios.get('/api.php');
+      setPizzak(response.data);
+  }
+  useEffect(() => {getPizza()},[]);
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
+      <header>
+          <h1>Web programozás-1 Előadás Házi feladat</h1>
+        </header>
+        <nav>
           <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
+              <li><a href="index.html">Főoldal</a></li>
+              <li><a href="javascript.html">JavaScript CRUD</a></li>
+              <li><a href="react.html">React CRUD</a></li>
+              <li><a href="spa.html">SPA (Single Page App)</a></li>
+              <li><a href="fetchapi.html">Fetch API CRUD</a></li>
+              <li><a href="axios.html">Axios CRUD</a></li>
+              <li><a href="oojs.html">OOJS Grafikus Alkalmazás</a></li>
           </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      </nav>
+      <main>
+          <h2>Axios Adatkezelés</h2>
+          <div className="crud-form">
+              <input type="text" id="nev" placeholder="Pizza neve"/>
+              <select id="kategorianev" name="kategorianev" required>
+                  <option value=""disabled selected>Válassz</option>
+                  <option value="király">Király</option>
+                  <option value="apród">Apród</option>
+                  <option value="főnemes">Főnemes</option>
+                  <option value="lovag">Lovag</option>
+                </select>
+              <select id="vegetarianus" name="vegetarianus" required>
+                  <option value=""disabled selected>Válassz</option>
+                  <option value="1">Igen</option>
+                  <option value="0">Nem</option>
+              </select>
+              <div id="buttons">
+                  <button onclick="addPizza()">Hozzáadás</button>
+              </div>
+          </div>
+          <table id="fetch-table">
+              <thead><tr><th>Pizza</th><th>Kategória</th><th>Vegán</th><th>Műveletek</th></tr></thead>
+              <tbody id="fetch-body">
+                {
+                  pizzak.map((pizza, i) => (
+                    <tr key={i}>
+                      <td>{pizza.nev}</td>
+                      <td>{pizza.kategorianev}</td>
+                      <td>{pizza.vegetarianus==0 ? 'Nem' : 'Igen'}</td>
+                      <td>
+                        <button>Módosítás</button>
+                        <button>Törlés</button>
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+          </table>
+      </main>
     </>
   )
 }
