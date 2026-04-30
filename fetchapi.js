@@ -70,6 +70,8 @@ function editPizza(nev, kategorianev, vegetarianus) {
     document.getElementById('nev').value = nev;
     document.getElementById('kategorianev').value = kategorianev;
     document.getElementById('vegetarianus').value = vegetarianus;
+    const buttons = document.getElementById("buttons");
+    buttons.innerHTML = "<button onclick='updatePizza()'>Módosítás</button>";
     
     console.log("Szerkesztés kijelölve: " + nev);
 }
