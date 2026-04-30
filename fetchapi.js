@@ -68,6 +68,7 @@ async function deletePizza(pizzaNev) {
 
 function editPizza(nev, kategorianev, vegetarianus) {
     document.getElementById('nev').value = nev;
+    document.getElementById('nev').disabled=true;
     document.getElementById('kategorianev').value = kategorianev;
     document.getElementById('vegetarianus').value = vegetarianus;
     const buttons = document.getElementById("buttons");
@@ -100,8 +101,11 @@ async function updatePizza() {
         const result = await response.json();
 
         if (response.ok) {
-            alert("Sikeres frissítés!");
+            const buttons = document.getElementById("buttons");
+            buttons.innerHTML = "<button onclick='addPizza()'>Hozzáadás</button>";
+            document.getElementById('nev').disabled=false;
             getPizzas(); 
+            alert("Sikeres frissítés!");
             document.getElementById('nev').value = '';
             document.getElementById('kategorianev').value = '';
             document.getElementById('vegetarianus').value = '';
