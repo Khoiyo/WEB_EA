@@ -1,6 +1,6 @@
 async function getPizzas() {
     try {
-        const response = await fetch('backend/pizza_api.php');
+        const response = await fetch('api.php');
         const data = await response.json();
         renderTable(data);
     } catch (error) {
@@ -9,7 +9,7 @@ async function getPizzas() {
 }
 
 async function addPizza(pizzaData) {
-    await fetch('backend/pizza_api.php', {
+    await fetch('api.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(pizzaData)
