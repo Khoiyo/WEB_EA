@@ -26,11 +26,16 @@ async function getPizzas() {
     }
 }
 
-async function addPizza(pizzaData) {
+async function addPizza() {
+    const nev = document.getElementById('nev');
+    const kategorianev = document.getElementById('kategorianev');
+    const vegetarianus = document.getElementById('vegetarianus');
     await fetch('api.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pizzaData)
+        body: JSON.stringify({
+            nev,kategorianev,vegetarianus
+        })
     });
     getPizzas(); 
 }
