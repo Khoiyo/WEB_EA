@@ -34,9 +34,9 @@ async function addPizza() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            nev: nev.target.value,
-            kategorianev: kategorianev.target.value,
-            vegetarianus: vegetarianus.target.value
+            nev: nev.value,
+            kategorianev: kategorianev.value,
+            vegetarianus: vegetarianus.value
         })
     });
     getPizzas(); 
