@@ -36,9 +36,9 @@ try {
 
         case 'DELETE':
             
-            if (isset($_GET['id'])) {
-                $stmt = $dbh->prepare("DELETE FROM pizza WHERE id = ?");
-                $stmt->execute([$_GET['id']]);
+            if (isset($_GET['nev'])) {
+                $stmt = $dbh->prepare("DELETE FROM pizza WHERE nev = ?");
+                $stmt->execute([$_GET['nev']]);
                 echo json_encode(['status' => 'success', 'message' => 'Pizza törölve']);
             }
             break;
